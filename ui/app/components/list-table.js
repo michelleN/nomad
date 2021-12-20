@@ -1,19 +1,12 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { computed as overridable } from 'ember-overridable-computed';
-import { classNames, tagName } from '@ember-decorators/component';
-import classic from 'ember-classic-decorator';
+import Component from '@glimmer/component';
 
-@classic
-@tagName('table')
-@classNames('table')
 export default class ListTable extends Component {
-  @overridable(() => []) source;
+  get source() {
+    return this.args.source;
+  }
 
-  // Plan for a future with metadata (e.g., isSelected)
-  @computed('source.[]')
   get decoratedSource() {
-    return (this.source || []).map(row => ({
+    return this.source.map(row => ({
       model: row,
     }));
   }
